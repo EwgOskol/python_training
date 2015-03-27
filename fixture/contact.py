@@ -2,6 +2,7 @@ __author__ = 'tester'
 
 from model.contact import Contact
 
+
 class ContactHelper:
 
     def __init__(self, app):
@@ -34,10 +35,13 @@ class ContactHelper:
         self.contact_cache = None
 
     def modify_first(self, contact):
+        self.modify_some_contact(0, contact)
+
+    def modify_some_contact(self, index, contact):
         wd = self.app.wd
         # init contact modify
         self.app.open_home_page()
-        wd.find_element_by_css_selector("img[alt=\"Edit\"]").click()
+        wd.find_elements_by_css_selector("img[alt=\"Edit\"]")[index].click()
         # fill form new data
         self.change_contact_field_value("firstname", contact.fname)
         self.change_contact_field_value("lastname", contact.lname)
@@ -53,10 +57,13 @@ class ContactHelper:
         self.contact_cache = None
 
     def delete_first(self):
+        self.delete_some_contact(0)
+
+    def delete_some_contact(self, index):
         wd = self.app.wd
         # edit first contact
         self.app.open_home_page()
-        wd.find_element_by_css_selector("img[alt=\"Edit\"]").click()
+        wd.find_elements_by_css_selector("img[alt=\"Edit\"]")[index].click()
         # init contact deletion
         wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
         self.contact_cache = None
