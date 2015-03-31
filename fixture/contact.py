@@ -41,7 +41,7 @@ class ContactHelper:
         wd = self.app.wd
         # init contact modify
         self.app.open_home_page()
-        wd.find_elements_by_css_selector("img[alt=\"Edit\"]")[index].click()
+        wd.find_elements_by_css_selector('img[alt="Edit"]')[index].click()
         # fill form new data
         self.change_contact_field_value("firstname", contact.fname)
         self.change_contact_field_value("lastname", contact.lname)
@@ -63,7 +63,7 @@ class ContactHelper:
         wd = self.app.wd
         # edit first contact
         self.app.open_home_page()
-        wd.find_elements_by_css_selector("img[alt=\"Edit\"]")[index].click()
+        wd.find_elements_by_css_selector('img[alt="Edit"]')[index].click()
         # init contact deletion
         wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
         self.contact_cache = None
