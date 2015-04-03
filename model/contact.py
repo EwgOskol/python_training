@@ -6,7 +6,7 @@ class Contact:
 
     def __init__(self, fname=None, lname=None, company=None, address=None, hm_page=None, id=None,
                  homephone=None, mobilephone=None, workphone=None, secondaryphone=None,
-                 all_phones_from_home_page=None):
+                 all_phones_from_home_page=None, email=None, email2=None, email3=None, emails=None):
         self.fname = fname
         self.lname = lname
         self.company = company
@@ -16,14 +16,20 @@ class Contact:
         self.workphone = workphone
         self.secondaryphone = secondaryphone
         self.hm_page = hm_page
-        self.all_phones_from_home_page=all_phones_from_home_page
+        self.all_phones_from_home_page = all_phones_from_home_page
         self.id = id
+        self.email = email
+        self.email2 = email2
+        self.email3 = email3
+        self.emails = emails
+
 
     def __repr__(self):
         return "%s:%s" % (self.fname, self.lname)
 
     def __eq__(self, other):
-        return (self.id is None or other.id is None or self.id == other.id) and self.fname == other.fname and self.lname == other.lname
+        return (self.id is None or other.id is None or self.id == other.id) and self.fname == other.fname \
+               and self.lname == other.lname
 
     def id_or_max(self):
         if (self.id):
