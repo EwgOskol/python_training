@@ -1,6 +1,7 @@
 __author__ = 'tester'
 
 from sys import maxsize
+import re
 
 class Contact:
 
@@ -28,7 +29,8 @@ class Contact:
         return "%s:%s" % (self.fname, self.lname)
 
     def __eq__(self, other):
-        return self.fname.rstrip() == other.fname.rstrip() and self.lname.rstrip() == other.lname.rstrip() \
+        return re.sub(r'\s+', ' ', self.fname.rstrip()) == re.sub(r'\s+', ' ', other.fname.rstrip()) \
+               and re.sub(r'\s+', ' ', self.lname.rstrip()) == re.sub(r'\s+', ' ', other.lname.rstrip()) \
                and (self.id is None or other.id is None or self.id == other.id)
 
     def id_or_max(self):
