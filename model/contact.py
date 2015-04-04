@@ -28,11 +28,11 @@ class Contact:
         return "%s:%s" % (self.fname, self.lname)
 
     def __eq__(self, other):
-        return (self.id is None or other.id is None or self.id == other.id) and self.fname == other.fname \
-               and self.lname == other.lname
+        return self.fname.rstrip() == other.fname.rstrip() and self.lname.rstrip() == other.lname.rstrip() \
+               and (self.id is None or other.id is None or self.id == other.id)
 
     def id_or_max(self):
         if (self.id):
-            return int(self.id)
+            return str(self.id)
         else:
-            return maxsize
+            return str(maxsize)
