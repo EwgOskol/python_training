@@ -1,6 +1,7 @@
 __author__ = 'tester'
 
 from sys import maxsize
+import re
 
 
 class Group:
@@ -15,7 +16,8 @@ class Group:
         return "%s:%s:%s:%s" % (self.id, self.name, self.header, self.footer)
 
     def __eq__(self, other):
-        return (self.id is None or other.id is None or self.id == other.id) and self.name == other.name
+        return (self.id is None or other.id is None or self.id == other.id) \
+               and re.sub(r'\s+', ' ', self.name.rstrip()) == re.sub(r'\s+', ' ', other.name.rstrip())
 
     def id_or_max(self):
         if (self.id):
