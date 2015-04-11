@@ -35,6 +35,6 @@ class Contact:
 
     def id_or_max(self):
         if (self.id):
-            return str(self.id)
+            return int(self.id)
         else:
-            return str(maxsize)
+            return maxsize
