@@ -7,7 +7,6 @@ from random import randrange
 def test_contact_info_on_home_page(app):
     count_contacts = app.contact.get_contact_list()
     index = randrange(len(count_contacts))
-    index = 24
     contact_from_home_page = app.contact.get_contact_list()[index]
     contact_from_edit_page = app.contact.get_contact_info_from_edit_page(index)
     contact_from_edit_page.all_phones_from_home_page = merge_phones_like_on_home_page(contact_from_edit_page)
