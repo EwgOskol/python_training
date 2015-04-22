@@ -27,10 +27,6 @@ class dbFixture:
             cursor.close()
         return list
 
-    #            (self, fname=None, lname=None, company=None, address=None, hm_page=None, id=None,
-    #             homephone=None, mobilephone=None, workphone=None, secondaryphone=None,
-    #             all_phones_from_home_page=None, email=None, email2=None, email3=None, emails=None):
-
     def get_contact_list(self):
         list = []
         cursor = self.connection.cursor()
