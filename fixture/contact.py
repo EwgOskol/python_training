@@ -42,6 +42,11 @@ class ContactHelper:
         self.app.open_home_page()
         wd.find_elements_by_css_selector('img[alt="Edit"]')[index].click()
 
+    def open_contact_to_edit_by_id(self, id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_element_by_css_selector("input[value='%s']" % id).find_element_by_xpath("../..").find_elements_by_tag_name("td")[7].find_element_by_tag_name("a").click()
+
     def open_contact_view_by_index(self, index):
         wd = self.app.wd
         self.app.open_home_page()
@@ -68,6 +73,25 @@ class ContactHelper:
         wd.find_element_by_link_text("home page").click()
         self.contact_cache = None
 
+    def modify_contact_by_id(self, id, contact):
+        wd = self.app.wd
+        # init contact modify
+        self.app.open_home_page()
+        self.open_contact_to_edit_by_id(id)
+        # fill form new data
+        self.change_contact_field_value("firstname", contact.fname)
+        self.change_contact_field_value("lastname", contact.lname)
+        self.change_contact_field_value("company", contact.company)
+        self.change_contact_field_value("address", contact.address)
+        self.change_contact_field_value("home", contact.homephone)
+        self.change_contact_field_value("mobile", contact.mobilephone)
+        self.change_contact_field_value("work", contact.workphone)
+        self.change_contact_field_value("homepage", contact.hm_page)
+        # submit contact modify
+        wd.find_element_by_name("update").click()
+        wd.find_element_by_link_text("home page").click()
+        self.contact_cache = None
+
     def delete_first(self):
         self.delete_some_contact(0)
 
@@ -76,6 +100,15 @@ class ContactHelper:
         # edit first contact
         self.app.open_home_page()
         self.open_contact_to_edit_by_index(index)
+        # init contact deletion
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
+        self.contact_cache = None
+
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        # edit first contact
+        self.app.open_home_page()
+        self.open_contact_to_edit_by_id(id)
         # init contact deletion
         wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
         self.contact_cache = None

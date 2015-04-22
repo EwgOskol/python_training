@@ -2,7 +2,7 @@ __author__ = 'tester'
 
 import mysql.connector
 from model.group import Group
-
+from model.contact import Contact
 
 class dbFixture:
 
@@ -12,6 +12,8 @@ class dbFixture:
         self.user = user
         self.password = password
         self.connection = mysql.connector.connect(host=host, database=name, user=user, password=password)
+        self.connection.autocommit = True
+
 
     def get_group_list(self):
         list = []
@@ -21,6 +23,25 @@ class dbFixture:
             for row in cursor:
                 (id, name, header, footer) = row
                 list.append(Group(id=str(id), name=name, header=header, footer=footer))
+        finally:
+            cursor.close()
+        return list
+
+    #            (self, fname=None, lname=None, company=None, address=None, hm_page=None, id=None,
+    #             homephone=None, mobilephone=None, workphone=None, secondaryphone=None,
+    #             all_phones_from_home_page=None, email=None, email2=None, email3=None, emails=None):
+
+    def get_contact_list(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select id, firstname, lastname, company, address, homepage, home, mobile, work, phone2, "
+                           "email, email2, email3 from addressbook where deprecated='0000-00-00 00:00:00'")
+            for row in cursor:
+                (id, fname, lname, company, address, hm_page, homephone, mobilephone, workphone, secondaryphone, email, email2, email3) = row
+                list.append(Contact(id=str(id), fname=fname, lname=lname, company=company, address=address,
+                                    hm_page=hm_page, homephone=homephone, mobilephone=mobilephone, workphone=workphone,
+                                    secondaryphone=secondaryphone, email=email, email2=email2, email3=email3))
         finally:
             cursor.close()
         return list
