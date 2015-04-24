@@ -95,6 +95,7 @@ class ContactHelper:
     def delete_first(self):
         self.delete_some_contact(0)
 
+
     def delete_some_contact(self, index):
         wd = self.app.wd
         # edit first contact
@@ -165,6 +166,25 @@ class ContactHelper:
         secondaryphone = search_data("P: (.*)", text)
         return Contact(homephone=homephone, mobilephone=mobilephone,
                        workphone=workphone, secondaryphone=secondaryphone)
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_id(id).click()
+
+    def move_contact_into_group(self, id, group_number):
+        wd = self.app.wd
+        self.select_contact_by_id(id)
+        wd.find_element_by_name("to_group").find_element_by_xpath("//div[@class='right']/select//option[%s]" % str(int(group_number)+1)).click()
+        wd.find_element_by_name("add").click()
+        wd.find_element_by_link_text("home").click()
+
+    def remove_contact_from_group(self, id, group_number):
+        wd = self.app.wd
+        wd.find_element_by_name("group").find_element_by_xpath("//form[@id='right']/select//option[%s]" % str(int(group_number)+3)).click()
+        self.select_contact_by_id(id)
+        wd.find_element_by_name("remove").click()
+        wd.find_element_by_link_text("home").click()
+        wd.find_element_by_name("group").find_element_by_xpath("//form[@id='right']/select//option[2]").click()
 
 def search_data(msk, text):
     nnn = ""
